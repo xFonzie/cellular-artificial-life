@@ -71,14 +71,14 @@ class Brain:
                             mutated_gene['col'] %= self.output_size
                     elif key == 'row':
                         if mutated_gene['layer'] == 0:
-                            mutated_gene[key] = np.random.randint(0, 18)
+                            mutated_gene[key] = np.random.randint(0, self.input_size)
                         elif mutated_gene['layer'] == 1:
-                            mutated_gene[key] = np.random.randint(0, 10)
+                            mutated_gene[key] = np.random.randint(0, self.hidden_size)
                     elif key == 'col':
                         if mutated_gene['layer'] == 0:
-                            mutated_gene[key] = np.random.randint(0, 10)
+                            mutated_gene[key] = np.random.randint(0, self.hidden_size)
                         elif mutated_gene['layer'] == 1:
-                            mutated_gene[key] = np.random.randint(0, 7)
+                            mutated_gene[key] = np.random.randint(0, self.output_size)
                     elif key == 'value':
                         mutated_gene[key] = np.random.uniform(-1, 1)
             mutated_genome.append(mutated_gene)
@@ -96,11 +96,11 @@ class Brain:
         color = [0, 0, 0]
         for gene in self.genome:
             if gene['layer'] == 0:
-                color[0] += gene['row'] / 18
-                color[1] += gene['col'] / 10
+                color[0] += gene['row'] / self.input_size
+                color[1] += gene['col'] / self.hidden_size
             elif gene['layer'] == 1:
-                color[0] += gene['row'] / 10
-                color[1] += gene['col'] / 7
+                color[0] += gene['row'] / self.hidden_size
+                color[1] += gene['col'] / self.output_size
             color[2] += (gene['value'] + 1) / 2
 
         color = [(c / len(self.genome)) for c in color]
