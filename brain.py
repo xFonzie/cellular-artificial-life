@@ -11,18 +11,36 @@ class Brain:
     
     ACTIONS = ['up', 'down', 'left', 'right', 'photosynthesis', 'attack', 'reproduce']
 
-    def __init__(self, genome):
+    def __init__(self, genome=None, input_size=18, hidden_size=10, output_size=7, size=100):
+        self.input_size = input_size # 8 light levels, 8 other organisms, 1 time, 1 energy
+        self.hidden_size = hidden_size
+        self.output_size = output_size # 4 movement, 1 photosynthesis, 1 attack, 1 reproduction
+
+        if genome is None:
+            genome = self.random_genome(size)
         self.genome = genome
-        self.input_size = 18 # 8 light levels, 8 other organisms, 1 time, 1 energy
-        self.hidden_size = 10
-        self.output_size = 7 # 4 movement, 1 photosynthesis, 1 attack, 1 reproduction
+
         self.weights_layer1 = np.zeros((self.input_size, self.hidden_size))
         self.weights_layer2 = np.zeros((self.hidden_size, self.output_size)) 
         self.activation1 = np.tanh
         self.activation2 = softmax
         self.decipher()
-        
-    # gene: {'layer': 0-1, 'row': 0-17, 'col': 0-9, 'value': float}
+
+    def random_genome(self, size):
+        genome = []
+        # gene: {'layer': 0-1, 'row': int, 'col': int, 'value': float}
+        for i in range(size):
+            gene = {}
+            gene['layer'] = np.random.randint(0, 2)
+            if gene['layer'] == 0:
+                gene['row'] = np.random.randint(0, self.input_size)
+                gene['col'] = np.random.randint(0, self.hidden_size)
+            elif gene['layer'] == 1:
+                gene['row'] = np.random.randint(0, self.hidden_size)
+                gene['col'] = np.random.randint(0, self.output_size)
+            gene['value'] = np.random.uniform(-1, 1)
+            genome.append(gene)  
+        return genome    
 
     def decipher(self):
         for gene in self.genome:
