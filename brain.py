@@ -2,17 +2,11 @@ import numpy as np
 from scipy.special import softmax
 import matplotlib.pyplot as plt
 from copy import deepcopy
+from Environment.config import OBSERVATIONS, ACTIONS
 
 class Brain:
-
-    OBSERVATIONS = ['light-up-left', 'light-up', 'light-up-right', 'light-left', 'light-right', 'light-down-left', 'light-down', 'light-down-right', 
-          'organism-up-left', 'organism-up', 'organism-up-right', 'organism-left', 'organism-right', 'organism-down-left', 'organism-down', 'organism-down-right', 
-          'time', 'energy']
-    
-    ACTIONS = ['up', 'down', 'left', 'right', 'photosynthesis', 'attack', 'reproduce']
-
-    def __init__(self, genome=None, input_size=18, hidden_size=10, output_size=7, size=100):
-        self.input_size = input_size # 8 light levels, 8 other organisms, 1 time, 1 energy
+    def __init__(self, genome=None, input_size=19, hidden_size=10, output_size=7, size=100):
+        self.input_size = input_size # 9 light levels, 8 other organisms, 1 time, 1 energy
         self.hidden_size = hidden_size
         self.output_size = output_size # 4 movement, 1 photosynthesis, 1 attack, 1 reproduction
 

@@ -3,12 +3,14 @@ from config import *
 
 class Cell(arcade.SpriteSolidColor):
     def __init__(self, info: dict = None) -> None:
+        super().__init__(CELL_WIDTH, CELL_HEIGHT, BACKGROUND_COLOR)
+        
         self.info = {
             'lightlevel': 0,
             'temperature': 0,
             'occupied': None, # Organism
         }
-
+        
         if info:
             self.info.update(info)
     
