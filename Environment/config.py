@@ -19,6 +19,14 @@ SCREEN_TITLE = "Window"
 
 # Colors and alpha values
 ALIVE_COLOR = color.BISTRE
+DEAD_COLOR = color.BLACK
 BACKGROUND_COLOR = color.ANTIQUE_WHITE
 ALPHA_ON = 255
 ALPHA_OFF = 0
+
+# Set the number of organisms
+NUM_ORGANISMS = 10
+
+# Organism values
+ORGANISM_ENERGY = 50
+REPRODUCTION_ENERGY = 50

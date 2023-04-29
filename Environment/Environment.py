@@ -83,74 +83,7 @@ class Environment(arcade.Window):
 
     def on_update(self, delta_time: float):
         """ Update the grid """
-
-        
-
-        if self.paused and not self.step:
-            return
-        self.step = False
-        self.i += 1
-        # Flip layers
-        if self.cur_layer == 0:
-            layer1 = self.layers_grid_sprites_two_dim[0]
-            layer2 = self.layers_grid_sprites_two_dim[1]
-            self.cur_layer = 1
-        else:
-            layer1 = self.layers_grid_sprites_two_dim[1]
-            layer2 = self.layers_grid_sprites_two_dim[0]
-            self.cur_layer = 0
-
-        # Count the neighbors that are alive
-        for row in range(ROW_COUNT):
-            for column in range(COLUMN_COUNT):
-                live_neighbors = 0
-                # -1 -1
-                if row > 0 and column > 0 \
-                        and layer1[row - 1][column - 1].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                # -1  0
-                if row > 0 and layer1[row - 1][column].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                # -1 +1
-                if row > 0 and column < COLUMN_COUNT - 1\
-                        and layer1[row - 1][column + 1].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                #  0 +1
-                if column < COLUMN_COUNT - 1 \
-                        and layer1[row][column + 1].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                # +1 +1
-                if row < ROW_COUNT - 1 \
-                        and column < COLUMN_COUNT - 1 \
-                        and layer1[row + 1][column + 1].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                # +1  0
-                if row < ROW_COUNT - 1 and layer1[row + 1][column].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                # +1 -1
-                if row < ROW_COUNT - 1 and column > 0 \
-                        and layer1[row + 1][column - 1].alpha == ALPHA_ON:
-                    live_neighbors += 1
-                #  0 -1
-                if column > 0 and layer1[row][column - 1].alpha == ALPHA_ON:
-                    live_neighbors += 1
-
-                """
-                Implement Conway's game of life rules
-
-                Any live cell with two or three live neighbours survives.
-                Any dead cell with three live neighbours becomes a live cell.
-                All other live cells die in the next generation. Similarly, all other dead cells stay dead.
-                """
-                if layer1[row][column].alpha == ALPHA_ON and (live_neighbors == 2 or live_neighbors == 3):
-                    if layer2[row][column].alpha == ALPHA_OFF:
-                        layer2[row][column].alpha = ALPHA_ON
-                elif layer1[row][column].alpha == ALPHA_OFF and live_neighbors == 3:
-                    if layer2[row][column].alpha == ALPHA_OFF:
-                        layer2[row][column].alpha = ALPHA_ON
-                else:
-                    if layer2[row][column].alpha == ALPHA_ON:
-                        layer2[row][column].alpha = ALPHA_OFF
+        pass
     
     def on_key_press(self, symbol: int, modifiers: int):
         # restart on 'r'

@@ -1,16 +1,23 @@
+import arcade
+from config import *
 
-
-class Cell:
-    def __init__(self, **kwargs) -> None:
+class Cell(arcade.SpriteSolidColor):
+    def __init__(self, info: dict = None) -> None:
         self.info = {
             'lightlevel': 0,
             'temperature': 0,
-            'occupied': False,
+            'occupied': None, # Organism
         }
 
-        if kwargs:
-            self.info.update(kwargs)
+        if info:
+            self.info.update(info)
     
+    def update(self):
+        if self.info['occupied']:
+            self.color = arcade.color_from_hex_string(self.info['occupied'].get_color())
+        else:
+            self.color = DEAD_COLOR
+
     def __getitem__(self, item):
         return self.info[item]
     
