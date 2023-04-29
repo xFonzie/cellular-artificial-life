@@ -92,7 +92,7 @@ class Brain:
                     difference += 1
         return difference / (len(self.genome) * 4)
 
-    def genome_to_RGB(self):
+    def genome_color(self):
         color = [0, 0, 0]
         for gene in self.genome:
             if gene['layer'] == 0:
@@ -102,10 +102,8 @@ class Brain:
                 color[0] += gene['row'] / self.hidden_size
                 color[1] += gene['col'] / self.output_size
             color[2] += (gene['value'] + 1) / 2
-
-        color = [(c / len(self.genome)) for c in color]
-        print(color)
-        return tuple(color)
+        color = [int(c / len(self.genome) * 255) for c in color]
+        return '#{:02x}{:02x}{:02x}'.format(color[0], color[1], color[2])
 
     def visualize(self):
         plt.xlim(-2, 4)
@@ -130,4 +128,3 @@ class Brain:
                     plt.plot([1, 2], [4 + i, 5 + j], color='blue', linewidth=abs(self.weights_layer2[i][j]) * 2)
 
         plt.show()
-
