@@ -30,7 +30,7 @@ class Board(arcade.SpriteList):
         for org in self.organisms:
             org.update(self.get_observation(org))
             if not org.alive:
-                self.matrix[org.position[0]][org.position[1]]['occupied'] = None
+                self.matrix[org.pos[0]][org.pos[1]]['occupied'] = None
                 self.organisms.remove(org)
                 self.remove(org)
 
