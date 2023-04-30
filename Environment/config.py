@@ -29,8 +29,8 @@ NUM_ORGANISMS = 10
 MUTATION_RATE = 0.01
 
 # Organism values
-ORGANISM_ENERGY = 50
-REPRODUCTION_ENERGY = 50
+ORGANISM_ENERGY = 400
+REPRODUCTION_ENERGY = 30
 
 OBSERVATIONS = ['light-up-left', 'light-up', 'light-up-right', 'light-left', 'light', 'light-right', 'light-down-left', 'light-down', 'light-down-right', 
           'organism-up-left', 'organism-up', 'organism-up-right', 'organism-left', 'organism-right', 'organism-down-left', 'organism-down', 'organism-down-right', 

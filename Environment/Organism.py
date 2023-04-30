@@ -5,8 +5,8 @@ import arcade
 from Environment.config import *
 
 class Organism(arcade.SpriteSolidColor):
-    def __init__(self, x, y):
-        self.brain = Brain()
+    def __init__(self, x, y, parent: Optional['Organism'] = None):
+        self.brain = Brain(genome=parent.brain.mutate(MUTATION_RATE) if parent else None)
         super().__init__(CELL_WIDTH, CELL_HEIGHT, self.brain.get_rgb_color())
         self.energy = ORGANISM_ENERGY
         self.age = 0
@@ -32,8 +32,7 @@ class Organism(arcade.SpriteSolidColor):
     def reproduce(self):
         if self.energy < REPRODUCTION_ENERGY:
             return None
-        child = Organism()
-        child.brain.decipher(self.brain.mutate(MUTATION_RATE))
+        child = Organism(self.pos[0], self.pos[1])
         child.energy = self.energy / 2
         self.energy = self.energy / 2
         return child
@@ -72,3 +71,4 @@ class Organism(arcade.SpriteSolidColor):
             child = self.reproduce()
             if child is not None:
                 return child
+        return None

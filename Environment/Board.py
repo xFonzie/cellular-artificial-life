@@ -3,6 +3,7 @@ from Environment.Cell import Cell
 import arcade
 import random
 from Environment.config import *
+import math
 
 class Board(arcade.SpriteList):
     def __init__(self, width, height) -> None:
@@ -26,9 +27,15 @@ class Board(arcade.SpriteList):
         self.extend(self.organisms)
     
     def update(self):
-        self.time += 1
+        self.time += 0.01
         for org in self.organisms:
-            org.update(self.get_observation(org))
+            result = org.update(self.get_observation(org))
+
+            if result:
+                self.organisms.append(result)
+                self.matrix[result.pos[0]][result.pos[1]]['occupied'] = result
+                self.append(result)
+
             if not org.alive:
                 self.matrix[org.pos[0]][org.pos[1]]['occupied'] = None
                 self.organisms.remove(org)
@@ -59,6 +66,6 @@ class Board(arcade.SpriteList):
                 else:
                     observation.append(self.matrix[i][j]['occupied'])
         
-        observation.append(self.time)
-
+        observation.append(math.sin(self.time))
+        print(observation)
         return observation
