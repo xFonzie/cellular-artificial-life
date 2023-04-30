@@ -1,12 +1,15 @@
 import arcade
-from config import *
+from Environment.config import *
 
 class Cell(arcade.SpriteSolidColor):
-    def __init__(self, info: dict = None) -> None:
-        super().__init__(CELL_WIDTH, CELL_HEIGHT, BACKGROUND_COLOR)
-        
+    def __init__(self, x, y, info: dict = None) -> None:
+        super().__init__(CELL_WIDTH, CELL_HEIGHT, arcade.color.REDWOOD)
+
+        self.center_x = x * (CELL_WIDTH + CELL_MARGIN) + CELL_WIDTH // 2 + CELL_MARGIN
+        self.center_y = y * (CELL_HEIGHT + CELL_MARGIN) + CELL_HEIGHT // 2 + CELL_MARGIN
+
         self.info = {
-            'lightlevel': 0,
+            'lightlevel': 10,
             'temperature': 0,
             'occupied': None, # Organism
         }
@@ -14,9 +17,12 @@ class Cell(arcade.SpriteSolidColor):
         if info:
             self.info.update(info)
     
+    def draw(self):
+        super().draw()
+
     def update(self):
         if self.info['occupied']:
-            self.color = arcade.color_from_hex_string(self.info['occupied'].get_color())
+            self.color = ALIVE_COLOR
         else:
             self.color = DEAD_COLOR
 

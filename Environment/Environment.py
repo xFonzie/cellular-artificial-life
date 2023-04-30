@@ -18,12 +18,11 @@ class Environment(arcade.Window):
         self.board = Board(ROW_COUNT, COLUMN_COUNT)
         self.board.generate_board(NUM_ORGANISMS)
 
-    
     def on_draw(self):
         """
         Render the screen.
         """
-        arcade.start_render()
+        self.clear()
         self.board.draw()
     
     def on_update(self, delta_time):

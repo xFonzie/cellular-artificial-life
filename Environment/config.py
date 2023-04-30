@@ -10,7 +10,7 @@ CELL_HEIGHT = 8
 
 # This sets the margin between each cell
 # and on the edges of the screen.
-CELL_MARGIN = 0
+CELL_MARGIN = 2
 
 # Do the math to figure out our screen dimensions
 SCREEN_WIDTH = (CELL_WIDTH + CELL_MARGIN) * COLUMN_COUNT + CELL_MARGIN

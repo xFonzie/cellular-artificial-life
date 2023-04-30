@@ -86,7 +86,7 @@ class Brain:
                     difference += 1
         return difference / (len(self.genome) * 4)
 
-    def genome_color(self):
+    def get_rgb_color(self):
         color = [0, 0, 0]
         for gene in self.genome:
             if gene['layer'] == 0:
@@ -97,7 +97,11 @@ class Brain:
                 color[1] += gene['col'] / self.output_size
             color[2] += (gene['value'] + 1) / 2
         color = [int(c / len(self.genome) * 255) for c in color]
-        return '#{:02x}{:02x}{:02x}'.format(color[0], color[1], color[2])
+        return tuple(color)
+
+    def get_hex_color(self):
+        color = self.get_rgb_color()
+        return '#%02x%02x%02x' % color
 
     def visualize(self):
         plt.xlim(-2, 4)
