@@ -3,18 +3,19 @@ name = "cellurar-artificial-life"
 version = "0.0.1"
 description = "This is a project from NIC course in Innopolis university. For more details read the README.md file."
 
-# TODO add Artyom
 authors = ["Zener_085 <t.didenko@innopolis.university>",
            "xFonzie <d.kuchukov@innopolis.university>",
-           "Artyom <a.makarov@innopolis.univerity>"]
+           "Smulemun <a.makarov@innopolis.univerity>"]
 
 readme = "README.md"
 packages = [{ include = "cellurar_artificial_life" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-pygame = "^2.3.0"
-
+python = ">=3.8,<3.12"
+numpy = "^1.24.3"
+arcade = "^2.6.17"
+scipy = "^1.10.1"
+matplotlib = "^3.7.1"
 
 [build-system]
 requires = ["poetry-core"]

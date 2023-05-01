@@ -1,4 +1,4 @@
-import pygame
+import arcade
 
 if __name__ == "__main__":
-    print("Pygame version: " + pygame.version.ver)
+    print("Arcade version: " + arcade.version.VERSION)
