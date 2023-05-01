@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "cellurar-artificial-life"
+version = "0.0.1"
+description = "This is a project from NIC course in Innopolis university. For more details read the README.md file."
+
+authors = ["Zener_085 <t.didenko@innopolis.university>",
+           "xFonzie <d.kuchukov@innopolis.university>",
+           "Smulemun <a.makarov@innopolis.univerity>"]
+
+readme = "README.md"
+packages = [{ include = "cellurar_artificial_life" }]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.12"
+numpy = "^1.24.3"
+arcade = "^2.6.17"
+scipy = "^1.10.1"
+matplotlib = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
