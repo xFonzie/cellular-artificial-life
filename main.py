@@ -1,5 +1,5 @@
-from Environment.Environment import Environment
-from Environment.config import *
+from environment.environment import Environment
+from environment.config import *
 import arcade
 
 def main():
