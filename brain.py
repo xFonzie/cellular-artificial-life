@@ -4,6 +4,15 @@ size of the input, hidden and output layers, as well as the size of the genome. 
 for creating a random genome, deciphering a genome into weights, getting an action based on a given
 input state, mutating the genome, and computing the difference between two brains. It also provides
 a visualization method to view the neural network.
+
+Version:
+0.0.1
+
+Author:
+Smulemun
+
+License:
+MIT
 """
 # TODO все комменты сгенерировал gpt, поэтому их следует проверить
 from copy import deepcopy
@@ -188,7 +197,7 @@ class Brain:
                     difference += 1
         return difference / (len(self.genome) * 4)
 
-    def genome_color(self) -> str:
+    def genome_color(self) -> list[int]:
         """
         Generate a color code based on the current organism's genome.
         Returns:
@@ -205,7 +214,7 @@ class Brain:
             color[2] += (gene["value"] + 1) / 2
         color = [int(c / len(self.genome) * 255) for c in color]
         # pylint: disable=consider-using-f-string
-        return "#{:02x}{:02x}{:02x}".format(color[0], color[1], color[2])
+        return color
 
     def visualize(self):
         """
