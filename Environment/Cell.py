@@ -35,7 +35,7 @@ class Cell(arcade.SpriteSolidColor):
     # TODO Зачем переписывать draw() если в нём ничего не поменялось?
 
     def update(self):
-        if self.info['occupied']:
+        if self.info["occupied"]:
             self.color = ALIVE_COLOR
         else:
             self.color = DEAD_COLOR

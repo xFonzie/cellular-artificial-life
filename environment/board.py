@@ -43,7 +43,7 @@ class Board(arcade.SpriteList):
     def update(self):
         self.time += 0.01
         for org in self.organisms:
-            result = org.org_update(self.get_observation(org))
+            result = org.org_update(self.get_observation(org), self.matrix)
 
             if result:
                 self.organisms.append(result)
