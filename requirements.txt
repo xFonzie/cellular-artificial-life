@@ -1,2 +1,5 @@
 pygame==2.3.0
 arcade==2.6.17
+numpy
+matplotlib
+scipy
