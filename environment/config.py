@@ -2,6 +2,7 @@
 Constants for environment, organism, cells, etc
 """
 from arcade import color
+from time import time
 
 # Set how many rows and columns we will have
 ROW_COUNT = 100
@@ -35,6 +36,7 @@ MUTATION_RATE = 0.01
 # Organism values
 ORGANISM_ENERGY = 10
 REPRODUCTION_ENERGY = 20
+MAX_AGE = 15
 
 OBSERVATIONS = [
     "light-up-left",
@@ -58,3 +60,14 @@ OBSERVATIONS = [
     "energy"]
 
 ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack", "reproduce"]
+
+
+def timing(f):
+    def wrap(*args, **kw):
+        ts = time()
+        result = f(*args, **kw)
+        te = time()
+        print('func:%r args:[%r, %r] took: %2.4f sec' % \
+          (f.__name__, args, kw, te-ts))
+        return result
+    return wrap

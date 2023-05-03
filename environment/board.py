@@ -7,7 +7,7 @@ import math
 from environment.organism import Organism
 from environment.cell import Cell
 import arcade
-from environment.config import ROW_COUNT, COLUMN_COUNT, NUM_ORGANISMS
+from environment.config import ROW_COUNT, COLUMN_COUNT, NUM_ORGANISMS, MAX_AGE
 
 
 class Board(arcade.SpriteList):
@@ -26,9 +26,9 @@ class Board(arcade.SpriteList):
         self.time = 0
         self.organisms = []
         self.generate_board()
-
+        self.max_age = MAX_AGE
         # tmp
-        self.day_rows = range(0, 11)
+        self.day_rows = list(range(0, 11)) + list(range(25, 35))
 
     def generate_board(self):
         """
@@ -53,7 +53,8 @@ class Board(arcade.SpriteList):
         children = []
 
         for org in self.organisms:
-            result = org.org_update(self.get_observation(org), self.matrix)
+            result = org.org_update(self.get_observation(org), self.matrix,
+                                    self.max_age)
 
             if result:
                 children.append(result)
@@ -61,7 +62,11 @@ class Board(arcade.SpriteList):
             if not org.alive or org.energy <= 0:
                 self.matrix[org.pos[0]][org.pos[1]]["occupied"] = None
                 self.organisms.remove(org)
-                self.remove(org)
+                org.kill()
+                try: 
+                    self.atlas.remove(org.texture) 
+                except ValueError: 
+                    pass
 
         for child in children:
             if self.matrix[child.pos[0]][child.pos[1]]["occupied"] is None:
@@ -80,13 +85,13 @@ class Board(arcade.SpriteList):
                         self.matrix[x][y]['lightlevel'] = 7
                 else:
                     for y in range(len(self.matrix[x])):
-                        self.matrix[x][y]['lightlevel'] = 0
+                        self.matrix[x][y]['lightlevel'] = 1
 
             self.day_rows = [(row + 1) % COLUMN_COUNT for row in self.day_rows]
 
         # print(self.time)
-        if len(self.organisms) > 0:
-            print(f'Population: {len(self.organisms)}. Average energy: {sum([org.energy for org in self.organisms]) / len(self.organisms)}. Day: {self.day_rows}')
+        # if len(self.organisms) > 0:
+        #     print(f'Population: {len(self.organisms)}. Average energy: {sum([org.energy for org in self.organisms]) / len(self.organisms)}. Day: {self.day_rows}')
 
     def get_observation(self, organism: Organism):
         """

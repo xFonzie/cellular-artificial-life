@@ -50,6 +50,8 @@ class Organism(arcade.SpriteSolidColor):
 
     def kill(self):
         self.alive = False
+        super().kill()
+        
 
     # pylint: disable=invalid-name
     def __move_to(self, x: int, y: int, matrix: list[list[Cell]]):
@@ -116,7 +118,8 @@ class Organism(arcade.SpriteSolidColor):
         return child
 
     # TODO update() переписывается с другими аргументами
-    def org_update(self, observation: list, matrix: list[list[Cell]]) -> Optional["Organism"]:
+    def org_update(self, observation: list, matrix: list[list[Cell]],
+                   max_age: int) -> Optional["Organism"]:
         """
         The organism makes a step
 
@@ -128,9 +131,9 @@ class Organism(arcade.SpriteSolidColor):
             A child if it's created, otherwise None
         """
         
-        # self.age += 1
+        self.age += 1
         self.energy -= 1
-        if self.energy <= 0 or self.age > 8:
+        if self.energy <= 0 or self.age > max_age:
             self.kill()
             return None
 

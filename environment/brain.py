@@ -21,7 +21,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import softmax
 
-
 # pylint: disable=too-many-instance-attributes
 class Brain:
     """
