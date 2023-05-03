@@ -1,10 +1,12 @@
 from environment.environment import Environment
 from environment.config import *
 import arcade
+import numpy as np
 
 def main():
     """ Main function - starting point to the program """
-    window = Environment(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=1 / 30)
+    np.random.seed(0)
+    window = Environment()
     window.center_window()
     arcade.run()
 
