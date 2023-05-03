@@ -3,11 +3,12 @@ Creation of environment.
 """
 import arcade
 # pylint: disable=import-error
-from environment.config import BACKGROUND_COLOR, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, UPDATE_RATE
+from environment.config import timing, BACKGROUND_COLOR, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, UPDATE_RATE
 from environment.board import Board
 
 
 # import random
+
 
 
 class Environment(arcade.Window):
@@ -35,3 +36,8 @@ class Environment(arcade.Window):
     def on_key_press(self, symbol, modifiers):
         if symbol == arcade.key.ESCAPE:
             self.close()
+
+    def on_mouse_scroll(self, x: int, y: int, scroll_x: int, scroll_y: int):
+        self.board.max_age += scroll_y
+        print('new max_age: ', self.board.max_age)
+    
