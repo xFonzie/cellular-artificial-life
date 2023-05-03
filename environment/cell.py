@@ -3,7 +3,7 @@ Class Cell, which represents a single cell on the board
 """
 import arcade
 # pylint: disable=import-error
-from environment.config import CELL_MARGIN, CELL_WIDTH, CELL_HEIGHT, ALIVE_COLOR, DEAD_COLOR
+from config import CELL_MARGIN, CELL_WIDTH, CELL_HEIGHT, ALIVE_COLOR, DEAD_COLOR
 
 
 class Cell(arcade.SpriteSolidColor):
@@ -25,7 +25,7 @@ class Cell(arcade.SpriteSolidColor):
         self.center_y = y * (CELL_HEIGHT + CELL_MARGIN) + CELL_HEIGHT // 2 + CELL_MARGIN
 
         self.info = {
-            "lightlevel": 0,
+            "lightlevel": 10,
             "temperature": 0,
             "occupied": None,  # Organism
         }
@@ -35,7 +35,7 @@ class Cell(arcade.SpriteSolidColor):
     # TODO Зачем переписывать draw() если в нём ничего не поменялось?
 
     def update(self):
-        if self.info["occupied"] is not None:
+        if self.info["occupied"]:
             self.color = ALIVE_COLOR
         else:
             self.color = DEAD_COLOR

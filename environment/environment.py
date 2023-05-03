@@ -3,8 +3,8 @@ Creation of environment.
 """
 import arcade
 # pylint: disable=import-error
-from environment.config import BACKGROUND_COLOR, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, UPDATE_RATE
-from environment.board import Board
+from config import BACKGROUND_COLOR, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, UPDATE_RATE
+from board import Board
 
 
 # import random
@@ -35,3 +35,8 @@ class Environment(arcade.Window):
     def on_key_press(self, symbol, modifiers):
         if symbol == arcade.key.ESCAPE:
             self.close()
+
+
+if __name__ == "__main__":
+    env = Environment()
+    env.run()
