@@ -58,8 +58,7 @@ OBSERVATIONS = [
     "time",
     "energy"]
 
-ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack", "reproduce"]
-
+ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack"]
 
 def timing(f):
     def wrap(*args, **kw):

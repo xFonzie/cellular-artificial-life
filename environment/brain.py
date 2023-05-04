@@ -16,6 +16,7 @@ MIT
 """
 # TODO все комменты сгенерировал gpt, поэтому их следует проверить
 from copy import deepcopy
+import json
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -34,6 +35,7 @@ class Brain:
         "light-up",
         "light-up-right",
         "light-left",
+        "light",
         "light-right",
         "light-down-left",
         "light-down",
@@ -50,11 +52,11 @@ class Brain:
         "energy"
     ]
 
-    ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack", "reproduce"]
+    ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack"]
 
     # pylint: disable=too-many-arguments
     def __init__(
-        self, genome=None, input_size=19, hidden_size=10, output_size=6, size=100
+        self, genome=None, input_size=19, hidden_size=10, output_size=6, size=100, genome_path=None
     ):
         """
         Standard constructor for Brain class
@@ -77,6 +79,10 @@ class Brain:
         self.output_size = (
             output_size  # 4 movement, 1 photosynthesis, 1 attack, 1 reproduction
         )
+
+        if genome_path is not None:
+            with open(genome_path, "r") as file:
+                genome = json.load(file)
 
         if genome is None:
             genome = self.random_genome(size)
@@ -237,7 +243,7 @@ class Brain:
                         [0, 1],
                         [i, 4 + j],
                         color="blue",
-                        linewidth=abs(self.weights_layer1[i][j]) * 2
+                        linewidth=abs(self.weights_layer1[i][j]) / 2
                     )
 
         for i in range(self.hidden_size):
@@ -247,7 +253,21 @@ class Brain:
                         [1, 2],
                         [4 + i, 5 + j],
                         color="blue",
-                        linewidth=abs(self.weights_layer2[i][j]) * 2
+                        linewidth=abs(self.weights_layer2[i][j]) / 2
                     )
 
         plt.show()
+
+    def save_genome(self, path):
+        """
+        Save the genome of the current organism to a JSON file.
+        Parameters:
+            path: A string representing the path to the JSON file.
+        """
+        with open(path, "w") as file:
+            json.dump(self.genome, file)
+
+for i in range(5):
+    n = np.random.randint(0, 138)
+    brain = Brain(genome_path=f'brains/brain{n}.json', size=50)
+    brain.visualize()

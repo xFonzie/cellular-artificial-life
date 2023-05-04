@@ -20,13 +20,15 @@ class Board(arcade.SpriteList):
         Standard constructor for the Board class
         """
         super().__init__()
-        self.matrix = [[Cell(i, j) for i in range(ROW_COUNT)] for j in range(COLUMN_COUNT)]
+        self.matrix = [[Cell(i, j, 
+                            #  lightlevel=70/math.sqrt((ROW_COUNT//2 - i)**2 + (COLUMN_COUNT//2 - j)**2 + 1),
+                             ) for i in range(ROW_COUNT)] for j in range(COLUMN_COUNT)]
         self.time = 0
         self.organisms = []
         self.generate_board()
         self.max_age = MAX_AGE
         # tmp
-        self.day_rows = list(range(0, 11)) + list(range(25, 35))
+        self.day_rows = list(range(0, 11))
         self.__num_organisms = NUM_ORGANISMS
 
     def generate_board(self):
@@ -88,16 +90,23 @@ class Board(arcade.SpriteList):
             for cell in row:
                 cell.update()
 
-        if int(self.time * 100) % 10 == 0:
-            for x in range(len(self.matrix)):
-                if x in self.day_rows:
-                    for y in range(len(self.matrix[x])):
-                        self.matrix[x][y]["lightlevel"] = 7
-                else:
-                    for y in range(len(self.matrix[x])):
-                        self.matrix[x][y]["lightlevel"] = 1
+        # if int(self.time * 100) % 10 == 0:
+        #     for x in range(len(self.matrix)):
+        #         if x in self.day_rows:
+        #             for y in range(len(self.matrix[x])):
+        #                 self.matrix[x][y]["lightlevel"] = 7
+        #         else:
+        #             for y in range(len(self.matrix[x])):
+        #                 self.matrix[x][y]["lightlevel"] = 1
 
-            self.day_rows = [(row + 1) % COLUMN_COUNT for row in self.day_rows]
+        #     self.day_rows = [(row + 1) % COLUMN_COUNT for row in self.day_rows]
+
+        print(self.time)
+        if int(self.time * 100) == 500:
+            n = 0
+            for org in self.organisms:
+                org.brain.save_genome(f'brains/brain{n}.json')
+                n += 1
 
     @staticmethod
     def __update_coordinates(__i: int, __j: int) -> tuple[int, int]:
