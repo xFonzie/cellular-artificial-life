@@ -267,7 +267,7 @@ class Brain:
         with open(path, "w") as file:
             json.dump(self.genome, file)
 
-for i in range(5):
-    n = np.random.randint(0, 138)
-    brain = Brain(genome_path=f'brains/brain{n}.json', size=50)
-    brain.visualize()
+# for i in range(5):
+#     n = np.random.randint(0, 138)
+#     brain = Brain(genome_path=f'brains/brain{n}.json', size=50)
+#     brain.visualize()
