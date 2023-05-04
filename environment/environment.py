@@ -3,12 +3,14 @@ Creation of environment.
 """
 import arcade
 # pylint: disable=import-error
-from environment.config import timing, BACKGROUND_COLOR, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, UPDATE_RATE
-from environment.board import Board
-
-
-# import random
-
+from .config import (
+    BACKGROUND_COLOR,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT,
+    SCREEN_TITLE,
+    NUM_ORGANISMS,
+)
+from .board import Board
 
 
 class Environment(arcade.Window):
@@ -20,11 +22,10 @@ class Environment(arcade.Window):
         """
         Standard constructor for Environment class
         """
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=UPDATE_RATE)
-
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=1 / NUM_ORGANISMS)
         self.background_color = BACKGROUND_COLOR
-
         self.board = Board()
+        self.prev_num_organisms = self.board.get_num_organisms()
 
     def on_draw(self):
         self.clear()
@@ -32,6 +33,7 @@ class Environment(arcade.Window):
 
     def on_update(self, delta_time):
         self.board.update()
+        self.set_update_rate(1 / self.board.get_num_organisms())
 
     def on_key_press(self, symbol, modifiers):
         if symbol == arcade.key.ESCAPE:
@@ -40,4 +42,3 @@ class Environment(arcade.Window):
     def on_mouse_scroll(self, x: int, y: int, scroll_x: int, scroll_y: int):
         self.board.max_age += scroll_y
         print('new max_age: ', self.board.max_age)
-    

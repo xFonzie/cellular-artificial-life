@@ -3,13 +3,14 @@ Class Cell, which represents a single cell on the board
 """
 import arcade
 # pylint: disable=import-error
-from environment.config import CELL_MARGIN, CELL_WIDTH, CELL_HEIGHT, ALIVE_COLOR, DEAD_COLOR
+from .config import CELL_MARGIN, CELL_WIDTH, CELL_HEIGHT, ALIVE_COLOR, DEAD_COLOR
 
 
 class Cell(arcade.SpriteSolidColor):
     """
     A single cell on the board. Represents what's happening inside of it.
     """
+
     def __init__(self, x, y, **info: dict):
         """
         Standard constructor for the Cell class
@@ -32,6 +33,7 @@ class Cell(arcade.SpriteSolidColor):
 
         if info:
             self.info.update(**info)
+
     # TODO Зачем переписывать draw() если в нём ничего не поменялось?
 
     def update(self):

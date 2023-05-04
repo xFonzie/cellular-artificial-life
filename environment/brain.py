@@ -21,6 +21,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import softmax
 
+
 # pylint: disable=too-many-instance-attributes
 class Brain:
     """
@@ -203,17 +204,6 @@ class Brain:
             A string representing a color code generated from the current organism's genome.
         """
         color = [0, 0, 0]
-        # for gene in self.genome:
-        #     if gene["layer"] == 0:
-        #         color[0] += gene["row"] / self.input_size
-        #         color[1] += gene["col"] / self.hidden_size
-        #     elif gene["layer"] == 1:
-        #         color[0] += gene["row"] / self.hidden_size
-        #         color[1] += gene["col"] / self.output_size
-        #     color[2] += (gene["value"] + 1) / 2
-        # color = [int(c / len(self.genome) * 256) for c in color]
-        # print(color)
-        # pylint: disable=consider-using-f-string
 
         for gene in self.genome:
             color[gene['layer']] += gene["row"]
@@ -222,7 +212,7 @@ class Brain:
 
         color = [int(c % 256) for c in color]
 
-        return tuple(color)
+        return color
 
     def visualize(self):
         """

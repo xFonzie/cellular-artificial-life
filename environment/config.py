@@ -20,7 +20,6 @@ CELL_MARGIN = 2
 SCREEN_WIDTH = (CELL_WIDTH + CELL_MARGIN) * COLUMN_COUNT + CELL_MARGIN
 SCREEN_HEIGHT = (CELL_HEIGHT + CELL_MARGIN) * ROW_COUNT + CELL_MARGIN
 SCREEN_TITLE = "Window"
-UPDATE_RATE = 1 / 10
 
 # Colors and alpha values
 ALIVE_COLOR = color.BISTRE
@@ -68,6 +67,7 @@ def timing(f):
         result = f(*args, **kw)
         te = time()
         print('func:%r args:[%r, %r] took: %2.4f sec' % \
-          (f.__name__, args, kw, te-ts))
+              (f.__name__, args, kw, te - ts))
         return result
+
     return wrap

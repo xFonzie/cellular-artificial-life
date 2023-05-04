@@ -6,7 +6,7 @@ from typing import Optional
 # from arcade import Texture
 import arcade
 # pylint: disable=import-error
-from environment.config import (
+from .config import (
     CELL_HEIGHT,
     CELL_MARGIN,
     CELL_WIDTH,
@@ -16,8 +16,8 @@ from environment.config import (
     ROW_COUNT,
     REPRODUCTION_ENERGY,
 )
-from environment.brain import Brain
-from environment.cell import Cell
+from .brain import Brain
+from .cell import Cell
 import random
 
 
