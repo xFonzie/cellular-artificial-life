@@ -1,8 +1,17 @@
 """
 Creation of environment.
+
+Version:
+1.0.0
+
+Author:
+xFonzie, Zener_085
+
+License:
+MIT
 """
 import arcade
-# pylint: disable=import-error
+# pylint: disable=E0402
 from .config import (
     BACKGROUND_COLOR,
     SCREEN_WIDTH,

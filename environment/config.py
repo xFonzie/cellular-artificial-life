@@ -1,8 +1,17 @@
 """
 Constants for environment, organism, cells, etc
+
+Version:
+1.0.0
+
+Author:
+xFonzie
+
+License:
+MIT
 """
-from arcade import color
 from time import time
+from arcade import color
 
 # Set how many rows and columns we will have
 ROW_COUNT = 100
@@ -61,13 +70,24 @@ OBSERVATIONS = [
 ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack"]
 
 
+# pylint: disable=invalid-name
 def timing(f):
+    """
+    Wraps the argument function and returns the result of the argument function. It also prints out
+    the name of the argument function, the arguments passed to it, the keyword arguments, and the
+    time it took to execute the argument function.
+
+    Parameters:
+        f: function which is analyzed
+
+    Returns:
+        arguments of the function, it's returned value, time the function took to execute
+    """
     def wrap(*args, **kw):
         ts = time()
         result = f(*args, **kw)
         te = time()
-        print('func:%r args:[%r, %r] took: %2.4f sec' %
-              (f.__name__, args, kw, te - ts))
+        print(f"func:{f.__name__}, args:[{args[0]}, {args[1]}], took: {kw}, sec: {te - ts}")
         return result
 
     return wrap

@@ -1,12 +1,22 @@
 """
 Class Board, representing the field for organisms.
+
+Version:
+1.0.0
+
+Author:
+xFonzie
+
+License:
+MIT
 """
 # pylint: disable=import-error
 import random
 import math
+import arcade
+# pylint: disable=E0402
 from .organism import Organism
 from .cell import Cell
-import arcade
 from .config import ROW_COUNT, COLUMN_COUNT, NUM_ORGANISMS, MAX_AGE
 
 
@@ -42,7 +52,7 @@ class Board(arcade.SpriteList):
             while self.matrix[i][j]["occupied"]:
                 i, j = random.randint(0, ROW_COUNT - 1), random.randint(0, COLUMN_COUNT - 1)
                 tries += 1
-                assert tries < 1000, "Too many tries to generate board"  # TODO а это зачем?
+                assert tries < 1000, "Too many tries to generate board"
 
             self.organisms.append(Organism(i, j))
             self.matrix[i][j]["occupied"] = self.organisms[-1]
@@ -92,6 +102,7 @@ class Board(arcade.SpriteList):
                 cell.update()
 
         if int(self.time * 100) == 500:
+            # pylint: disable=invalid-name
             n = 0
             for org in self.organisms:
                 org.brain.save_genome(f'brains/brain{n}.json')

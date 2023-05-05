@@ -1,5 +1,9 @@
-from environment.environment import Environment
+"""
+Main file of the project. Used for running only.
+"""
 import numpy as np
+# pylint: disable=import-error
+from environment.environment import Environment
 
 
 def main():

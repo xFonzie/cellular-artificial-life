@@ -1,11 +1,20 @@
 """
 Description of the Organism class
+
+Version:
+1.0.0
+
+Author:
+xFonzie, Zener_085
+
+License:
+MIT
 """
 
 from typing import Optional
-# from arcade import Texture
+import random
 import arcade
-# pylint: disable=import-error
+# pylint: disable=E0402
 from .config import (
     CELL_HEIGHT,
     CELL_MARGIN,
@@ -18,9 +27,9 @@ from .config import (
 )
 from .brain import Brain
 from .cell import Cell
-import random
 
 
+# pylint: disable=too-many-instance-attributes
 class Organism(arcade.SpriteSolidColor):
     """
     Organism is a single entity that tries to survive in te environment.
@@ -125,7 +134,6 @@ class Organism(arcade.SpriteSolidColor):
         Returns:
             A child if it's created, otherwise None
         """
-        
         self.age += 1
         self.energy -= 1
         if self.energy <= 0 or self.age > max_age:
@@ -133,7 +141,7 @@ class Organism(arcade.SpriteSolidColor):
             return None
 
         state = (
-                list(observation[:9]) + 
+                list(observation[:9]) +
                 [self.brain.difference(org.brain) if org else 0 for org in observation[9: 17]] +
                 [observation[17], self.energy]
         )
@@ -161,5 +169,5 @@ class Organism(arcade.SpriteSolidColor):
             child = self.__reproduce(matrix)
             if child is not None:
                 return child
-        
+
         return None

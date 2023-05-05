@@ -6,7 +6,7 @@ input state, mutating the genome, and computing the difference between two brain
 a visualization method to view the neural network.
 
 Version:
-0.2.0
+2.0.0
 
 Author:
 Smulemun
@@ -20,7 +20,7 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import softmax
-
+# pylint: disable=E0402
 from .config import OBSERVATIONS, ACTIONS
 
 
@@ -58,7 +58,7 @@ class Brain:
         )
 
         if genome_path is not None:
-            with open(genome_path, "r") as file:
+            with open(genome_path, "r", encoding="utf-8") as file:
                 genome = json.load(file)
 
         if genome is None:
@@ -241,5 +241,5 @@ class Brain:
         Parameters:
             path: A string representing the path to the JSON file.
         """
-        with open(path, "w") as file:
+        with open(path, "w", encoding="utf-8") as file:
             json.dump(self.genome, file)

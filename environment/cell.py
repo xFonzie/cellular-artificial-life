@@ -1,8 +1,17 @@
 """
 Class Cell, which represents a single cell on the board
+
+Version:
+1.0.0
+
+Author:
+xFonzie
+
+License:
+MIT
 """
 import arcade
-# pylint: disable=import-error
+# pylint: disable=E0402
 from .config import CELL_MARGIN, CELL_WIDTH, CELL_HEIGHT, ALIVE_COLOR, DEAD_COLOR
 
 
