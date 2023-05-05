@@ -11,7 +11,6 @@ License:
 MIT
 """
 import math
-
 import random
 
 import arcade

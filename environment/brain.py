@@ -40,7 +40,7 @@ class Brain:
         hidden_size=10,
         output_size=6,
         size=100,
-        genome_path=None
+        genome_path=None,
     ):
         """
         Standard constructor for Brain class

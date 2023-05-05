@@ -18,7 +18,6 @@ import arcade
 # pylint: disable=E0402
 from .brain import Brain
 from .cell import Cell
-
 from .config import (
     CELL_HEIGHT,
     CELL_MARGIN,
@@ -37,7 +36,7 @@ class Organism(arcade.SpriteSolidColor):
     Organism is a single entity that tries to survive in te environment.
     """
 
-    brain: Brain = ...
+    brain: Brain
 
     def __init__(self, x: int, y: int, parent: Optional["Organism"] = None):
         """
@@ -150,7 +149,7 @@ class Organism(arcade.SpriteSolidColor):
             list(observation[:9])
             + [
                 self.brain.difference(org.brain) if org else 0
-                for org in observation[9: 17]
+                for org in observation[9:17]
             ]
             + [observation[17], self.energy]
         )
