@@ -46,12 +46,11 @@ class Organism(arcade.SpriteSolidColor):
         self.center_x = x * (CELL_WIDTH + CELL_MARGIN) + CELL_WIDTH // 2 + CELL_MARGIN
         self.center_y = y * (CELL_HEIGHT + CELL_MARGIN) + CELL_HEIGHT // 2 + CELL_MARGIN
 
-        self.pos = x, y  # TODO если ты уже поменял центр координат, зачем обновлять pos?
+        self.pos = x, y
 
     def kill(self):
         self.alive = False
         super().kill()
-        
 
     # pylint: disable=invalid-name
     def __move_to(self, x: int, y: int, matrix: list[list[Cell]]):
@@ -64,7 +63,6 @@ class Organism(arcade.SpriteSolidColor):
             matrix: matrix with all cells for checking if the organism wants to move to another
                 organism
         """
-
         if x < 0:
             x = COLUMN_COUNT - 1
         elif x >= COLUMN_COUNT:
@@ -76,8 +74,6 @@ class Organism(arcade.SpriteSolidColor):
 
         if matrix[x][y]["occupied"]:
             return
-
-        # if x < 0 or x >= COLUMN_COUNT or y < 0 or y >= ROW_COUNT:
 
         matrix[self.pos[0]][self.pos[1]]["occupied"] = None
         self.pos = x, y
@@ -93,7 +89,7 @@ class Organism(arcade.SpriteSolidColor):
         if self.energy <= REPRODUCTION_ENERGY:
             return None
         child_x, child_y = self.pos
-        posible_cells = []
+        possible_cells = []
         for x in range(child_x - 1, child_x + 2):
             for y in range(child_y - 1, child_y + 2):
                 new_x, new_y = x, y
@@ -106,18 +102,16 @@ class Organism(arcade.SpriteSolidColor):
                 elif new_y >= ROW_COUNT:
                     new_y = 0
                 if not matrix[new_x][new_y]["occupied"]:
-                    posible_cells.append((new_x, new_y))
+                    possible_cells.append((new_x, new_y))
 
-        if not posible_cells:
+        if not possible_cells:
             return None
-        child_x, child_y = random.choice(posible_cells)
+        child_x, child_y = random.choice(possible_cells)
         child = Organism(child_x, child_y, parent=self)
         child.energy = self.energy // 2
         self.energy = self.energy // 2
-        # self.energy -= REPRODUCTION_ENERGY
         return child
 
-    # TODO update() переписывается с другими аргументами
     def org_update(self, observation: list, matrix: list[list[Cell]],
                    max_age: int) -> Optional["Organism"]:
         """
@@ -126,6 +120,7 @@ class Organism(arcade.SpriteSolidColor):
         Parameters:
             observation: list of data represented cells and organisms around
             matrix: matrix with all cells in the environment
+            max_age: maximum age of the organism
 
         Returns:
             A child if it's created, otherwise None
@@ -156,17 +151,11 @@ class Organism(arcade.SpriteSolidColor):
                 self.__move_to(self.pos[0] + 1, self.pos[1], matrix)
             case 4:
                 self.energy += observation[4]
-                # print(f'ate at {self.pos} with {observation[4]} energy')
             case 5:
                 for i in range(9, 17):
                     if observation[i] is not None and observation[i].alive:
                         self.energy += observation[i].energy
                         observation[i].kill()
-                        # print(f'killed at {observation[i].pos} by {self.pos}')
-            # case 6:
-            #     child = self.__reproduce(matrix)
-            #     if child is not None:
-            #         return child   
 
         if self.energy > REPRODUCTION_ENERGY:
             child = self.__reproduce(matrix)

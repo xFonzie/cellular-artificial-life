@@ -11,7 +11,7 @@ class Cell(arcade.SpriteSolidColor):
     A single cell on the board. Represents what's happening inside of it.
     """
 
-    def __init__(self, x, y, **info: dict):
+    def __init__(self, x, y, **info):
         """
         Standard constructor for the Cell class
 
@@ -33,8 +33,6 @@ class Cell(arcade.SpriteSolidColor):
 
         if info:
             self.info.update(**info)
-
-    # TODO Зачем переписывать draw() если в нём ничего не поменялось?
 
     def update(self):
         if self.info["occupied"] is not None:

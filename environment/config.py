@@ -60,12 +60,13 @@ OBSERVATIONS = [
 
 ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack"]
 
+
 def timing(f):
     def wrap(*args, **kw):
         ts = time()
         result = f(*args, **kw)
         te = time()
-        print('func:%r args:[%r, %r] took: %2.4f sec' % \
+        print('func:%r args:[%r, %r] took: %2.4f sec' %
               (f.__name__, args, kw, te - ts))
         return result
 

@@ -6,7 +6,7 @@ input state, mutating the genome, and computing the difference between two brain
 a visualization method to view the neural network.
 
 Version:
-0.0.1
+0.2.0
 
 Author:
 Smulemun
@@ -14,13 +14,14 @@ Smulemun
 License:
 MIT
 """
-# TODO все комменты сгенерировал gpt, поэтому их следует проверить
 from copy import deepcopy
 import json
 
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import softmax
+
+from .config import OBSERVATIONS, ACTIONS
 
 
 # pylint: disable=too-many-instance-attributes
@@ -29,30 +30,6 @@ class Brain:
     This is the Brain class for the organism simulation.
     It is used for creating the artificial neural networks for the organism.
     """
-
-    OBSERVATIONS = [
-        "light-up-left",
-        "light-up",
-        "light-up-right",
-        "light-left",
-        "light",
-        "light-right",
-        "light-down-left",
-        "light-down",
-        "light-down-right",
-        "organism-up-left",
-        "organism-up",
-        "organism-up-right",
-        "organism-left",
-        "organism-right",
-        "organism-down-left",
-        "organism-down",
-        "organism-down-right",
-        "time",
-        "energy"
-    ]
-
-    ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack"]
 
     # pylint: disable=too-many-arguments
     def __init__(
@@ -228,13 +205,13 @@ class Brain:
         for i in range(self.input_size):
             plt.plot(0, i, "o", color="black")
             plt.text(
-                -0.25, i, self.OBSERVATIONS[i], fontsize=8, horizontalalignment="right"
+                -0.25, i, OBSERVATIONS[i], fontsize=8, horizontalalignment="right"
             )
         for i in range(self.hidden_size):
             plt.plot(1, 4 + i, "o", color="black")
         for i in range(self.output_size):
             plt.plot(2, 5 + i, "o", color="black")
-            plt.text(2.25, 5 + i, self.ACTIONS[i], fontsize=8)
+            plt.text(2.25, 5 + i, ACTIONS[i], fontsize=8)
 
         for i in range(self.input_size):
             for j in range(self.hidden_size):
@@ -266,8 +243,3 @@ class Brain:
         """
         with open(path, "w") as file:
             json.dump(self.genome, file)
-
-# for i in range(5):
-#     n = np.random.randint(0, 138)
-#     brain = Brain(genome_path=f'brains/brain{n}.json', size=50)
-#     brain.visualize()

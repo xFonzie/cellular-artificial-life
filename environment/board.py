@@ -20,8 +20,9 @@ class Board(arcade.SpriteList):
         Standard constructor for the Board class
         """
         super().__init__()
-        self.matrix = [[Cell(i, j, 
-                            #  lightlevel=70/math.sqrt((ROW_COUNT//2 - i)**2 + (COLUMN_COUNT//2 - j)**2 + 1),
+        self.matrix = [[Cell(i, j,
+                             lightlevel=70 / math.sqrt(
+                                 (ROW_COUNT // 2 - i) ** 2 + (COLUMN_COUNT // 2 - j) ** 2 + 1),
                              ) for i in range(ROW_COUNT)] for j in range(COLUMN_COUNT)]
         self.time = 0
         self.organisms = []
@@ -90,18 +91,6 @@ class Board(arcade.SpriteList):
             for cell in row:
                 cell.update()
 
-        # if int(self.time * 100) % 10 == 0:
-        #     for x in range(len(self.matrix)):
-        #         if x in self.day_rows:
-        #             for y in range(len(self.matrix[x])):
-        #                 self.matrix[x][y]["lightlevel"] = 7
-        #         else:
-        #             for y in range(len(self.matrix[x])):
-        #                 self.matrix[x][y]["lightlevel"] = 1
-
-        #     self.day_rows = [(row + 1) % COLUMN_COUNT for row in self.day_rows]
-
-        print(self.time)
         if int(self.time * 100) == 500:
             n = 0
             for org in self.organisms:

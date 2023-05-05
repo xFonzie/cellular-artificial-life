@@ -33,7 +33,12 @@ class Environment(arcade.Window):
 
     def on_update(self, delta_time):
         self.board.update()
-        self.set_update_rate(1 / self.board.get_num_organisms())
+        num_orgs = self.board.get_num_organisms()
+        if num_orgs:
+            self.set_update_rate(1 / self.board.get_num_organisms())
+        else:
+            print("Everyone is dead")
+            self.close()
 
     def on_key_press(self, symbol, modifiers):
         if symbol == arcade.key.ESCAPE:
