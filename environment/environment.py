@@ -11,15 +11,17 @@ License:
 MIT
 """
 import arcade
+
 # pylint: disable=E0402
+from .board import Board
+
 from .config import (
     BACKGROUND_COLOR,
-    SCREEN_WIDTH,
+    NUM_ORGANISMS,
     SCREEN_HEIGHT,
     SCREEN_TITLE,
-    NUM_ORGANISMS,
+    SCREEN_WIDTH,
 )
-from .board import Board
 
 
 class Environment(arcade.Window):
@@ -31,7 +33,9 @@ class Environment(arcade.Window):
         """
         Standard constructor for Environment class
         """
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=1 / NUM_ORGANISMS)
+        super().__init__(
+            SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=1 / NUM_ORGANISMS
+        )
         self.background_color = BACKGROUND_COLOR
         self.board = Board()
         self.prev_num_organisms = self.board.get_num_organisms()
@@ -55,4 +59,4 @@ class Environment(arcade.Window):
 
     def on_mouse_scroll(self, x: int, y: int, scroll_x: int, scroll_y: int):
         self.board.max_age += scroll_y
-        print('new max_age: ', self.board.max_age)
+        print("new max_age: ", self.board.max_age)

@@ -11,6 +11,7 @@ License:
 MIT
 """
 from time import time
+
 from arcade import color
 
 # Set how many rows and columns we will have
@@ -65,7 +66,8 @@ OBSERVATIONS = [
     "organism-down",
     "organism-down-right",
     "time",
-    "energy"]
+    "energy",
+]
 
 ACTIONS = ["up", "down", "left", "right", "photosynthesis", "attack"]
 
@@ -83,11 +85,14 @@ def timing(f):
     Returns:
         arguments of the function, it's returned value, time the function took to execute
     """
+
     def wrap(*args, **kw):
         ts = time()
         result = f(*args, **kw)
         te = time()
-        print(f"func:{f.__name__}, args:[{args[0]}, {args[1]}], took: {kw}, sec: {te - ts}")
+        print(
+            f"func:{f.__name__}, args:[{args[0]}, {args[1]}], took: {kw}, sec: {te - ts}"
+        )
         return result
 
     return wrap

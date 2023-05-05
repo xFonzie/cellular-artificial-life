@@ -10,14 +10,16 @@ xFonzie
 License:
 MIT
 """
-# pylint: disable=import-error
-import random
 import math
+
+import random
+
 import arcade
+
 # pylint: disable=E0402
-from .organism import Organism
 from .cell import Cell
-from .config import ROW_COUNT, COLUMN_COUNT, NUM_ORGANISMS, MAX_AGE
+from .config import COLUMN_COUNT, MAX_AGE, NUM_ORGANISMS, ROW_COUNT
+from .organism import Organism
 
 
 class Board(arcade.SpriteList):
@@ -30,12 +32,22 @@ class Board(arcade.SpriteList):
         Standard constructor for the Board class
         """
         super().__init__()
-        self.matrix = [[Cell(i, j,
-                             lightlevel=70 / math.sqrt(
-                                 (ROW_COUNT // 2 - i) ** 2 + (COLUMN_COUNT // 2 - j) ** 2 + 1),
-                             ) for i in range(ROW_COUNT)] for j in range(COLUMN_COUNT)]
+        self.matrix = [
+            [
+                Cell(
+                    i,
+                    j,
+                    lightlevel=70
+                    / math.sqrt(
+                        (ROW_COUNT // 2 - i) ** 2 + (COLUMN_COUNT // 2 - j) ** 2 + 1
+                    ),
+                )
+                for i in range(ROW_COUNT)
+            ]
+            for j in range(COLUMN_COUNT)
+        ]
         self.time = 0
-        self.organisms = []
+        self.organisms: list[Organism] = []
         self.generate_board()
         self.max_age = MAX_AGE
         # tmp
@@ -50,7 +62,9 @@ class Board(arcade.SpriteList):
             tries = 0
             i, j = random.randint(0, ROW_COUNT - 1), random.randint(0, COLUMN_COUNT - 1)
             while self.matrix[i][j]["occupied"]:
-                i, j = random.randint(0, ROW_COUNT - 1), random.randint(0, COLUMN_COUNT - 1)
+                i, j = random.randint(0, ROW_COUNT - 1), random.randint(
+                    0, COLUMN_COUNT - 1
+                )
                 tries += 1
                 assert tries < 1000, "Too many tries to generate board"
 
@@ -74,8 +88,9 @@ class Board(arcade.SpriteList):
         children = []
 
         for org in self.organisms:
-            result = org.org_update(self.get_observation(org), self.matrix,
-                                    self.max_age)
+            result = org.org_update(
+                self.get_observation(org), self.matrix, self.max_age
+            )
 
             if result:
                 children.append(result)
@@ -105,7 +120,7 @@ class Board(arcade.SpriteList):
             # pylint: disable=invalid-name
             n = 0
             for org in self.organisms:
-                org.brain.save_genome(f'brains/brain{n}.json')
+                org.brain.save_genome(f"brains/brain{n}.json")
                 n += 1
 
     @staticmethod

@@ -14,14 +14,15 @@ Smulemun
 License:
 MIT
 """
-from copy import deepcopy
 import json
+from copy import deepcopy
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from scipy.special import softmax
+
 # pylint: disable=E0402
-from .config import OBSERVATIONS, ACTIONS
+from .config import ACTIONS, OBSERVATIONS
 
 
 # pylint: disable=too-many-instance-attributes
@@ -33,7 +34,13 @@ class Brain:
 
     # pylint: disable=too-many-arguments
     def __init__(
-        self, genome=None, input_size=19, hidden_size=10, output_size=6, size=100, genome_path=None
+        self,
+        genome=None,
+        input_size=19,
+        hidden_size=10,
+        output_size=6,
+        size=100,
+        genome_path=None
     ):
         """
         Standard constructor for Brain class
@@ -184,13 +191,13 @@ class Brain:
         """
         Generate a color code based on the current organism's genome.
         Returns:
-            A string representing a color code generated from the current organism's genome.
+            A list representing a color code generated from the current organism's genome.
         """
         color = [0, 0, 0]
 
         for gene in self.genome:
-            color[gene['layer']] += gene["row"]
-            color[1 - gene['layer']] += gene["col"]
+            color[gene["layer"]] += gene["row"]
+            color[1 - gene["layer"]] += gene["col"]
             color[2] += abs(gene["value"])
 
         color = [int(c % 256) for c in color]
@@ -204,9 +211,7 @@ class Brain:
         plt.xlim(-2, 4)
         for i in range(self.input_size):
             plt.plot(0, i, "o", color="black")
-            plt.text(
-                -0.25, i, OBSERVATIONS[i], fontsize=8, horizontalalignment="right"
-            )
+            plt.text(-0.25, i, OBSERVATIONS[i], fontsize=8, horizontalalignment="right")
         for i in range(self.hidden_size):
             plt.plot(1, 4 + i, "o", color="black")
         for i in range(self.output_size):
@@ -220,7 +225,7 @@ class Brain:
                         [0, 1],
                         [i, 4 + j],
                         color="blue",
-                        linewidth=abs(self.weights_layer1[i][j]) / 2
+                        linewidth=abs(self.weights_layer1[i][j]) / 2,
                     )
 
         for i in range(self.hidden_size):
@@ -230,7 +235,7 @@ class Brain:
                         [1, 2],
                         [4 + i, 5 + j],
                         color="blue",
-                        linewidth=abs(self.weights_layer2[i][j]) / 2
+                        linewidth=abs(self.weights_layer2[i][j]) / 2,
                     )
 
         plt.show()

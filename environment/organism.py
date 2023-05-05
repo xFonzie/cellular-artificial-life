@@ -10,23 +10,25 @@ xFonzie, Zener_085
 License:
 MIT
 """
-
-from typing import Optional
 import random
+from typing import Optional
+
 import arcade
+
 # pylint: disable=E0402
+from .brain import Brain
+from .cell import Cell
+
 from .config import (
     CELL_HEIGHT,
     CELL_MARGIN,
     CELL_WIDTH,
-    ORGANISM_ENERGY,
-    MUTATION_RATE,
     COLUMN_COUNT,
-    ROW_COUNT,
+    MUTATION_RATE,
+    ORGANISM_ENERGY,
     REPRODUCTION_ENERGY,
+    ROW_COUNT,
 )
-from .brain import Brain
-from .cell import Cell
 
 
 # pylint: disable=too-many-instance-attributes
@@ -34,7 +36,8 @@ class Organism(arcade.SpriteSolidColor):
     """
     Organism is a single entity that tries to survive in te environment.
     """
-    brain = ...
+
+    brain: Brain = ...
 
     def __init__(self, x: int, y: int, parent: Optional["Organism"] = None):
         """
@@ -45,7 +48,9 @@ class Organism(arcade.SpriteSolidColor):
             y: y coordinate of the organism
             parent: a parent of the organism
         """
-        self.brain = Brain(genome=parent.brain.mutate(MUTATION_RATE) if parent else None, size=50)
+        self.brain = Brain(
+            genome=parent.brain.mutate(MUTATION_RATE) if parent else None, size=50
+        )
         super().__init__(CELL_WIDTH, CELL_HEIGHT, self.brain.genome_color())
         self.color = self.brain.genome_color()
         self.energy = ORGANISM_ENERGY
@@ -121,8 +126,9 @@ class Organism(arcade.SpriteSolidColor):
         self.energy = self.energy // 2
         return child
 
-    def org_update(self, observation: list, matrix: list[list[Cell]],
-                   max_age: int) -> Optional["Organism"]:
+    def org_update(
+        self, observation: list, matrix: list[list[Cell]], max_age: int
+    ) -> Optional["Organism"]:
         """
         The organism makes a step
 
@@ -141,9 +147,12 @@ class Organism(arcade.SpriteSolidColor):
             return None
 
         state = (
-                list(observation[:9]) +
-                [self.brain.difference(org.brain) if org else 0 for org in observation[9: 17]] +
-                [observation[17], self.energy]
+            list(observation[:9])
+            + [
+                self.brain.difference(org.brain) if org else 0
+                for org in observation[9: 17]
+            ]
+            + [observation[17], self.energy]
         )
 
         action = self.brain.get_action(state)
