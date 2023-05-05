@@ -1,9 +1,19 @@
 """
 Class Cell, which represents a single cell on the board
+
+Version:
+1.0.0
+
+Author:
+xFonzie
+
+License:
+MIT
 """
 import arcade
-# pylint: disable=import-error
-from .config import CELL_MARGIN, CELL_WIDTH, CELL_HEIGHT, ALIVE_COLOR, DEAD_COLOR
+
+# pylint: disable=E0402
+from .config import ALIVE_COLOR, CELL_HEIGHT, CELL_MARGIN, CELL_WIDTH, DEAD_COLOR
 
 
 class Cell(arcade.SpriteSolidColor):
@@ -47,7 +57,7 @@ class Cell(arcade.SpriteSolidColor):
         self.info[key] = value
 
     def __repr__(self) -> str:
-        return f'<Cell {self.info}>'
+        return f"<Cell {self.info}>"
 
     def __str__(self) -> str:
-        return f'<Cell {self.info}>'
+        return f"<Cell {self.info}>"
