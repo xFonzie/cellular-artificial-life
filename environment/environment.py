@@ -14,13 +14,7 @@ import arcade
 
 # pylint: disable=E0402
 from .board import Board
-from .config import (
-    BACKGROUND_COLOR,
-    NUM_ORGANISMS,
-    SCREEN_HEIGHT,
-    SCREEN_TITLE,
-    SCREEN_WIDTH,
-)
+from .config import NUM_ORGANISMS, SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 
 
 class Environment(arcade.Window):
@@ -35,7 +29,6 @@ class Environment(arcade.Window):
         super().__init__(
             SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=1 / NUM_ORGANISMS
         )
-        self.background_color = BACKGROUND_COLOR
         self.board = Board()
         self.prev_num_organisms = self.board.get_num_organisms()
 

@@ -12,8 +12,6 @@ MIT
 """
 from time import time
 
-from arcade import color
-
 # Set how many rows and columns we will have
 ROW_COUNT = 100
 COLUMN_COUNT = 100
@@ -32,9 +30,6 @@ SCREEN_HEIGHT = (CELL_HEIGHT + CELL_MARGIN) * ROW_COUNT + CELL_MARGIN
 SCREEN_TITLE = "Window"
 
 # Colors and alpha values
-ALIVE_COLOR = color.BISTRE
-DEAD_COLOR = color.BLACK
-BACKGROUND_COLOR = color.ANTIQUE_WHITE
 ALPHA_ON = 255
 ALPHA_OFF = 0
 
