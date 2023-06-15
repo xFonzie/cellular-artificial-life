@@ -15,7 +15,6 @@ import arcade
 # pylint: disable=E0402
 from .board import Board
 from .config import (
-    BACKGROUND_COLOR,
     NUM_ORGANISMS,
     SCREEN_HEIGHT,
     SCREEN_TITLE,
