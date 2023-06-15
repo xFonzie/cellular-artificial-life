@@ -14,12 +14,7 @@ import arcade
 
 # pylint: disable=E0402
 from .board import Board
-from .config import (
-    NUM_ORGANISMS,
-    SCREEN_HEIGHT,
-    SCREEN_TITLE,
-    SCREEN_WIDTH,
-)
+from .config import NUM_ORGANISMS, SCREEN_HEIGHT, SCREEN_TITLE, SCREEN_WIDTH
 
 
 class Environment(arcade.Window):

@@ -12,8 +12,6 @@ MIT
 """
 from time import time
 
-from arcade import color
-
 # Set how many rows and columns we will have
 ROW_COUNT = 100
 COLUMN_COUNT = 100
