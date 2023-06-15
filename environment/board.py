@@ -173,3 +173,8 @@ class Board(arcade.SpriteList):
 
         observation.append(math.sin(self.time))
         return observation
+
+    def draw(self, *, filter=None, pixelated=None, blend_function=None):
+        for column in self.matrix:
+            for cell in column:
+                cell.draw()

@@ -13,7 +13,7 @@ MIT
 import arcade
 
 # pylint: disable=E0402
-from .config import ALIVE_COLOR, CELL_HEIGHT, CELL_MARGIN, CELL_WIDTH, DEAD_COLOR
+from .config import CELL_HEIGHT, CELL_MARGIN, CELL_WIDTH
 
 
 class Cell(arcade.SpriteSolidColor):
@@ -46,9 +46,10 @@ class Cell(arcade.SpriteSolidColor):
 
     def update(self):
         if self.info["occupied"] is not None:
-            self.color = ALIVE_COLOR
+            # pylint: disable=no-member
+            self.color = self.info["occupied"].color
         else:
-            self.color = DEAD_COLOR
+            self.color = [min(255, int(self.info["lightlevel"]) * 30)] * 3
 
     def __getitem__(self, item):
         return self.info[item]
@@ -57,7 +58,4 @@ class Cell(arcade.SpriteSolidColor):
         self.info[key] = value
 
     def __repr__(self) -> str:
-        return f"<Cell {self.info}>"
-
-    def __str__(self) -> str:
         return f"<Cell {self.info}>"

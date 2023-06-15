@@ -35,7 +35,6 @@ class Environment(arcade.Window):
         super().__init__(
             SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE, update_rate=1 / NUM_ORGANISMS
         )
-        self.background_color = BACKGROUND_COLOR
         self.board = Board()
         self.prev_num_organisms = self.board.get_num_organisms()
 

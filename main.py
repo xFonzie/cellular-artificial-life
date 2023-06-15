@@ -13,7 +13,6 @@ def main():
     """
     np.random.seed(0)
     window = Environment()
-    window.center_window()
     window.run()
 
 
